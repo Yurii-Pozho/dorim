@@ -93,7 +93,7 @@ if uploaded_file is not None:
         processed_file = output.getvalue()
 
         st.download_button(
-            label="Завантажити результат",
+            label="Занрузить результат",
             data=processed_file,
             file_name='output_asklepiy.xlsx',
             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
