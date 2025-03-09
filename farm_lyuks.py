@@ -22,6 +22,7 @@ def get_prices(organization):
             "ЛАРИТИЛЕН №20 ТАБ МЯТА ЛИМОН": 24430,
             "ЛАРИТИЛЕН ТАБ МЯТА №20": 24430,
             "РЕЗИСТОЛ КАПЛИ 50 МЛ": 84290,
+            "РЕЗИСТОЛ КАПЛИ 20 МЛ": 49000,
             "ТИОТРИАЗОЛИН ФОРТЕ РАСТВОР ДЛЯ ИНЪЕКЦИЙ 50МГ/МЛ ПО 4 МЛ №10 АМП": 173532,
             "ТИОЦЕТАМ АМП 10 МЛ №10": 94077,
         },
@@ -184,14 +185,14 @@ def process_farm_lyuks_excel(file_path, organization):
         # Функція для отримання ІНН за назвою покупця із завантажених JSON даних.
         def get_inn_from_json(client_name):
             if pd.isna(client_name):
-                return 111111111
+                return 309872412
             cleaned_name = (client_name.strip()
                             .replace('"', '')
                             .replace('`', '')
                             .replace('mas`uliyati cheklangan jamiyati', '')
                             .strip()
                            )
-            return inn_data.get(cleaned_name, 111111111)
+            return inn_data.get(cleaned_name, 309872412)
         
         # Створюємо колонку "ИНН клиента" на основі назви покупця.
         df['ИНН клиента'] = df['Наименование покупателя'].apply(get_inn_from_json)

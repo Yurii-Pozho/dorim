@@ -1,0 +1,23 @@
+select 
+d.distributor_id,
+d.period_start,
+d.period_end,
+d.doc_number,
+drug_id,
+case 
+	when period_type = 1 then 'Месяц'
+    when period_type = 2 then 'Неделя'
+end as peroid_type,
+pharm_id,
+pharm_name,
+drug_name,
+maker_name,
+distributor_doc_created,
+distributor_doc_number,
+sale_in_count,
+sale_in_price_with_vat
+from public.distributor_reports d
+join public.distributor_report_rows dr on dr.distributor_report_id  = d.id 
+where 
+drug_id in (35251,11288,11287,9802,11356,44785,59064,59065,11924,46681,7100,5477,14396,41408,45834,9458,7770,7769,6469,50442,54646,50443,48140,49012,48805,52554,48141,48560,49014,52555,33981,4898,9120,40543,9924,12963,54802,13445,11881,44399,17573,40814,44400,48809,21176,26494,9352,53098,9641,9873,11728,12274,45624,33138,5018,9642,10140,2699,3649,3692,5952,1244,35653)
+and pharm_id is not null

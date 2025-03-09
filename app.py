@@ -145,6 +145,11 @@ if uploaded_files:
             st.write("### Обработанные данные")
             st.write(df)
 
+            # Формирование динамического имени файла на основе выбранных параметров
+            distributor_name = st.session_state.distributor.strip().lower().replace(' ', '_')
+            organization_name = st.session_state.organization.strip().lower().replace(' ', '_')
+            file_name = f"{distributor_name}_{organization_name}.xlsx"
+
             # Кнопка для загрузки результата
             output = io.BytesIO()
             with pd.ExcelWriter(output, engine='openpyxl') as writer:
@@ -153,7 +158,7 @@ if uploaded_files:
             st.download_button(
                 label="Загрузить результат",
                 data=output.getvalue(),
-                file_name='output_result.xlsx',
+                file_name=file_name,
                 mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             )
 

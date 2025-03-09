@@ -119,7 +119,8 @@ def process_biotek_excel(file_path, organization):
     # =========================
     # Викликаємо функцію get_prices для отримання словника з цінами для заданої організації
     prices = get_prices(organization)
-    
+    df['Цена'] = df['Номенклатура'].map(prices).fillna(1)
+    df['Цена'] = pd.to_numeric(df['Цена'], errors='coerce')
     # =========================
     # Оновлення інформації про виробника
     # =========================

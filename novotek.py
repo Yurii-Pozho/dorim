@@ -90,11 +90,18 @@ def process_novotek_excel(file_path, organization):
     df = df[columns]
     
     def clean_inn(inn_value):
-        """Очищує значення ІПН (видаляє зайві символи та перетворює в int)."""
+        """Очищує значення ІПН (видаляє зайві символи та повертає 9-значний int)."""
         if pd.isna(inn_value):
             return 0
+        # Очищуємо значення від зайвих символів
         cleaned_inn = str(inn_value).replace(',', '').replace('.', '').split(r'[-–]')[0].strip()
-        return int(cleaned_inn)
+        # Перевіряємо, чи складається рядок лише з цифр
+        if cleaned_inn.isdigit():
+            # Якщо довжина більше 9, беремо перші 9 цифр
+            if len(cleaned_inn) > 9:
+                cleaned_inn = cleaned_inn[:9]
+            return int(cleaned_inn)
+        return 0
     
     # Перевіряємо, чи є колонка "ИНН", і очищуємо її
     if 'ИНН' in df.columns:
@@ -114,7 +121,7 @@ def process_novotek_excel(file_path, organization):
         def get_inn_from_json(client_name):
             """Отримує ІПН з JSON за назвою контрагента або повертає дефолтне значення."""
             if pd.isna(client_name):
-                return 111111111
+                return 309872412
             cleaned_name = (client_name.strip()
                 .replace('"', '')
                 .replace('`', '')
