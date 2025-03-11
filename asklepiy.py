@@ -80,7 +80,10 @@ def process_asklepiy_excel(file_path, organization):
     
     # Якщо існує стовпець 'Кол-во', перейменовуємо його в 'Количество'
     if 'Кол-во' in df.columns:
-        df.rename(columns={'Кол-во': 'Количество'}, inplace=True) 
+        df.rename(columns={'Кол-во': 'Количество'}, inplace=True)
+
+    if 'Сумма по полю Кол-во' in df.columns:
+        df.rename(columns={'Сумма по полю Кол-во': 'Количество'}, inplace=True)
         
     # Переконуємося, що значення в стовпці 'Количество' є числовими, та округлюємо їх
     if 'Количество' in df.columns:
